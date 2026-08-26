@@ -1,0 +1,48 @@
+# ============================================================================
+# HMPO training environment (verl 0.7.1, CUDA 12.9)
+#
+# Pinned versions are those verified to work on our training nodes.
+# NOTE: torch / vllm / flash-attn are tied to the CUDA 12.9 toolchain and are
+#       best installed via the setup steps in README.md rather than plain pip.
+# ============================================================================
+
+# ---- core RL / training stack (version-sensitive, keep pinned) ----
+transformers==5.3.0          # IMPORTANT: 5.2.x breaks Qwen3.5 rope config (list|set TypeError)
+megatron-core==0.16.0rc0
+mbridge==0.15.1              # Megatron <-> HuggingFace bridge (also vendored under third_party/mbridge)
+tensordict==0.10.0
+ray==2.54.0
+
+# ---- config / hydra ----
+omegaconf==2.3.0
+hydra-core==1.3.2
+
+# ---- data ----
+datasets>=4.0.0
+pyarrow>=17.0.0
+pandas>=2.0.0
+
+# ---- reward / math scoring ----
+math-verify==0.9.0
+pylatexenc>=2.10
+sympy>=1.12
+
+# ---- utils (version-tolerant) ----
+numpy>=1.26,<2.0
+einops>=0.8.0
+safetensors>=0.5.0
+sentencepiece>=0.2.0
+accelerate>=1.0.0
+codetiming>=1.4.0
+dill>=0.3.8
+tensorboard>=2.18.0
+wandb>=0.18.0
+tqdm
+
+# ============================================================================
+# Installed separately (see README "Environment Setup"), NOT via this file:
+#   torch==2.9.1+cu129        # CUDA 12.9 build
+#   vllm==0.1.dev1+g0de533398 # custom dev build with Qwen3.5 support
+#   flash-attn==2.8.1         # build against the installed torch/CUDA
+#   triton==3.5.1             # pulled in by torch
+# ============================================================================
